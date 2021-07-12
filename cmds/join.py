@@ -16,13 +16,13 @@ class people(Cog_Extension):
             await msg.channel.send(F"目前有{self.people}人")
             if self.people==4:
                 self.player=random.sample(self.player,k=4)
-                team_1=""
+                team_a=""
                 for i in range(2):
-                    team_1+=F"{self.player[i]} "
-                team_2=""
+                    team_a+=F"{self.player[i]} "
+                team_b=""
                 for i in range(2,4):
-                    team_2+=F"{self.player[i]} "
-                await msg.channel.send(F"{team_1} 是一隊\n{team_2}是一隊")
+                    team_b+=F"{self.player[i]} "
+                await msg.channel.send(F"{team_a} 是a隊\n{team_b}是b隊")
                 distribution.distribution(self)
         elif msg.content=="不打了":
             self.people-=1
