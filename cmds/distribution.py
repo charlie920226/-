@@ -7,11 +7,11 @@ import random
 with open ("background_setting.json",'r',encoding="utf8") as jfile:
     jdata=json.load(jfile)
 
-class 發牌(Cog_Extension):
+class distribution(Cog_Extension):
     async def distribution(self):
         if self.people==2:
             self.people=0
-            print ("發牌")
+            print ("distribution")
             for people in self.player:
                 message=""
                 for i in range(13):
@@ -22,6 +22,7 @@ class 發牌(Cog_Extension):
                         json.dump(jdata,jfile,indent=4)
                     message+='stop'
                 await people.send(message)
+            
 
 def setup(bot):
-    bot.add_cog(發牌(bot))
+    bot.add_cog(distribution(bot))
