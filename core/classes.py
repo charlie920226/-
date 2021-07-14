@@ -6,9 +6,9 @@ class Cog_Extension(commands.Cog):
         self.bot=bot
         self.join=True
         self.player=[]
+        self.a_win_edition=0
+        self.b_win_edition=0
+        self.channel=0
         startplaying=False
-        a_win_edition=0
-        b_win_edition=0
-        channel=0
 
 

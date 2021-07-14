@@ -29,9 +29,8 @@ class people(Cog_Extension):
                     await distribution.distribution(self)
                     self.join=False
             elif msg.content=="不打了":
-                self.people-=1
                 self.player.remove(msg.author)
-                await msg.channel.send(F"目前有{self.people}人")
+                await msg.channel.send(F"目前有{len(self.player)}人")
         
 def setup(bot):
     bot.add_cog(people(bot))
