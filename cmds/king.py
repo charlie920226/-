@@ -10,7 +10,7 @@ with open ("background_setting.json",'r',encoding="utf8") as jfile:
 class king(Cog_Extension):
     @commands.command()
     async def set(self,ctx):
-        if self.startplaying==True:
+        if Cog_Extension.startplaying==True:
             content=ctx.message.content
             a=content[5]
             self.team=content[-1]
@@ -23,8 +23,7 @@ class king(Cog_Extension):
                 self.b_win_edition=int(a)+6
                 self.a_win_edition=14-self.b_win_edition
                 await ctx.channel.send(F"王牌花色是{self.king_color}\na隊要拿{self.a_win_edition}墩，b隊要拿{self.b_win_edition}墩")
-            self.startplaying=False
-            self.play=True
+            Cog_Extension.startplaying=False
             self.channel=ctx.channel
             await start.game(self)
            

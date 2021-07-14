@@ -19,9 +19,9 @@ class distribution(Cog_Extension):
                     jdata["poker"].remove(a)
                     with open("background_setting.json",'w',encoding="utf8")as jfile:
                         json.dump(jdata,jfile,indent=4)
-                    message+='stop'
                 await people.send(message)
-            self.startplaying=True
+            Cog_Extension.startplaying=True
+            print(self.startplaying)
             print ("OK")
             jdata["poker"]=[
         "club A",
