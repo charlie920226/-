@@ -21,7 +21,7 @@ class distribution(Cog_Extension):
                         json.dump(jdata,jfile,indent=4)
                 await people.send(message)
             Cog_Extension.startplaying=True
-            print(self.startplaying)
+            print(self.player)
             print ("OK")
             jdata["poker"]=[
         "club A",

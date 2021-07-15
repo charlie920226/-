@@ -8,6 +8,11 @@ with open ("background_setting.json",'r',encoding="utf8") as jfile:
     jdata=json.load(jfile)
 
 class people(Cog_Extension):
+    def __init__(self,bot):
+        super().__init__(self)
+        self.player=[]
+        self.bot=bot
+
     @commands.Cog.listener()
     async def on_message(self,msg):
         if self.join==True:
@@ -15,6 +20,7 @@ class people(Cog_Extension):
                 self.player.append(msg.author)
                 await msg.channel.send(F"目前有{len(self.player)}人")
                 if len(self.player)==4:
+                    print (self.player)
                     self.player=random.sample(self.player,k=4)
                     team_a=""
                     self.ateam=[]
@@ -31,6 +37,6 @@ class people(Cog_Extension):
             elif msg.content=="不打了":
                 self.player.remove(msg.author)
                 await msg.channel.send(F"目前有{len(self.player)}人")
-        
+
 def setup(bot):
     bot.add_cog(people(bot))

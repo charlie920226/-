@@ -32,4 +32,4 @@ for filename in os.listdir('.\cmds'):
         bot.load_extension(F"cmds.{filename[:-3]}")
 
 if __name__=="__main__":
-    bot.run("ODYyMjI2ODAxNDI5ODM5ODcy.YOVRSA.yBbAUQ6NSyIcCqqbpoRK_37O5t8")
+    bot.run()

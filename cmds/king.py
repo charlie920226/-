@@ -3,11 +3,12 @@ from discord.ext import commands
 import json
 from core.classes import Cog_Extension
 from cmds.start import start
+from cmds.join import people
 
 with open ("background_setting.json",'r',encoding="utf8") as jfile:
     jdata=json.load(jfile)
 
-class king(Cog_Extension):
+class king(people):
     def compare(self,list):
         a=0
         for i in range(4):
@@ -15,7 +16,8 @@ class king(Cog_Extension):
                 a=list[i] 
                 max=i 
         return max
-    def judge(self,card,player):
+
+    def judge(self,card:list,player):
         number=[]
         if self.king_color=="NK": 
             king_card=card[0]
@@ -73,22 +75,30 @@ class king(Cog_Extension):
                 await ctx.channel.send(F"王牌花色是{self.king_color}\na隊要拿{self.a_win_edition}墩，b隊要拿{self.b_win_edition}墩")
             Cog_Extension.startplaying=False
             self.channel=ctx.channel
-            a_wincount,b_wincount=0,0
-            while a_wincount<self.a_win_edition or b_wincount<self.b_win_edition:
-                self.cards=[]
-                for self.counter in range(4):
-                    @commands.Cog.listener()
-                    async def on_message(self,msg):
-                        if msg.content in jdata["poker"] and msg.author==self.player[self.counter]:
-                            self.cards+=msg.content
-                        else: self.counter-=1
+            self.a_wincount,self.b_wincount=0,0
+            self.cards=[]
+            self.win_count_start=True
+            print(self.player)
+    
+    @commands.Cog.listener()
+    async def on_message(self,msg):
+        if self.win_count_start==True:
+            self.counter+=1
+            print (self.counter)
+            print (self.player)
+            if msg.content in jdata["poker"] and msg.author==self.player[self.counter] and msg.author!=self.bot.user:
+                if self.win_count_start==True:
+                    self.cards+=msg.content
+            if len(self.cards)==4:
+                print ("finish")
                 win=king.judge(self,self.cards,self.player)
-                if win in self.ateam:a_wincount+=1
-                else: b_wincount+=1
-                await self.channel.send(F"{win}贏了這一墩\n目前a隊拿了{a_wincount}墩，還要拿{self.a_win_edition-a_wincount}\n目前b隊拿了{b_wincount}墩，還要拿{self.a_win_edition-a_wincount}")
-    
-
-    
+                if win in self.ateam:self.a_wincount+=1
+                else: self.b_wincount+=1
+                await self.channel.send(F"{win}贏了這一墩\n目前a隊拿了{self.a_wincount}墩，還要拿{self.a_win_edition-self.a_wincount}\n目前b隊拿了{self.b_wincount}墩，還要拿{self.a_win_edition-self.a_wincount}")
+                self.cards=[]
+            if self.a_wincount==self.a_win_edition or self.b_wincount==self.b_win_edition:
+                self.channel.send("遊戲結束")
+            
 
            
 def setup(bot):
