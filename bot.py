@@ -27,9 +27,19 @@ async def unload(ctx,extension):
     bot.unload_extension(F'cmds.{extension}')
     await ctx.send(F'{extension} unloaded')
 
+@bot.command()
+async def message(ctx,id):
+    user=ctx.author
+    context= await user.fetch_message(id)
+    print("message get")
+    await context.delete()
+
+
+
 for filename in os.listdir('.\cmds'):
     if filename.endswith(".py"):
         bot.load_extension(F"cmds.{filename[:-3]}")
 
+
 if __name__=="__main__":
-    bot.run()
+    bot.run("ODYyMjI2ODAxNDI5ODM5ODcy.YOVRSA.cbVoDfHCfKMRb2HIGaDjZ5s8oJo")
