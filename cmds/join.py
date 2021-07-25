@@ -50,7 +50,14 @@ class people(Cog_Extension):
 
     @commands.command()
     async def use(self,ctx):
-        await ctx.send("橋牌機器人使用說明:\n1.輸入(來打牌)，機器人會登錄玩家；輸入(不打了)，則可以取消登錄\n2.湊滿4個人時，會將玩家隨機分為a、b隊，左上、左下、右上、右下編號分別為1、2、3、4(出牌順序)\n3.喊牌時以出牌反方向進行，喊完牌後用([set 喊的墩數 王牌花色 隊伍 喊到王的玩家編號)的形式輸入\n花色:mini,club,diamond,Middle,heart,\nspace,No_King\nex:[set 3 No_King b 2(注意每項輸入間有空格)\n4.出牌方式為在頻道上把自己要打的牌用訊息送出")
+        await ctx.send("橋牌機器人使用說明:\n1.輸入(來打牌)，機器人會登錄玩家；輸入(不打了)，則可以取消登錄\n2.湊滿4個人時，會將玩家隨機分為a、b隊，左上、左下、右上、右下編號分別牌為1、2、3、4(出牌順序)\3.喊牌時以出牌反方向進行，喊完牌後用([set 喊的墩數 王花色 隊伍 喊到王的玩家編號)的形式輸入\n花色:mini,club,diamond,Middle,heart,\nspace,No_King\nex:[set 3 No_King b 2(注意每項輸入間有空格)\n4.出牌方式為在頻道上把自己要打的牌用訊息送出")
 
+        #await ctx.send("""橋牌機器人使用說明:
+        #1.輸入(來打牌)，機器人會登錄玩家；輸入(不打了)，則可以取消登錄
+        #2.湊滿4個人時，會將玩家隨機分為a、b隊，左上、左下、右上、右下編號分別為1、2、3、4(出牌順序)  
+        #3.喊牌時以出牌反方向進行，喊完牌後用([set 喊的墩數 王牌花色 隊伍 喊到王的玩家編號)的形式輸入
+        #花色:mini,club,diamond,Middle,heart,space,No_King
+        #ex:[set 3 No_King b 2(注意每項輸入間有空格)
+        #4.出牌方式為在頻道上把自己要打的牌用訊息送出""")
 def setup(bot):
     bot.add_cog(people(bot))
