@@ -10,6 +10,8 @@ with open ("background_setting.json",'r',encoding="utf8") as jfile:
 class people(Cog_Extension):
     @commands.Cog.listener()  #參加遊戲的指令
     async def on_message(self,msg):
+        with open ("background_setting.json",'r',encoding="utf8") as jfile:
+            jdata=json.load(jfile)
         if jdata["join"]=="True":  #參加遊戲指令的開關
             if msg.content=="來打牌":#如果輸入訊息為{來打牌}，就把傳訊息的人id加進json的player
                 jdata["player"].append(msg.author.id)
@@ -35,7 +37,7 @@ class people(Cog_Extension):
                     with open("background_setting.json",'w',encoding="utf8")as jfile:
                         json.dump(jdata,jfile,indent=4)
                     Cog_Extension.distribute=True
-                    
+                    self.people=0
                 elif self.people>=5:
                     jdata["player"]=[]
                     with open("background_setting.json",'w',encoding="utf8")as jfile:

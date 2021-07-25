@@ -42,4 +42,4 @@ for filename in os.listdir('.\cmds'):
 
 
 if __name__=="__main__":
-    bot.run("ODYyMjI2ODAxNDI5ODM5ODcy.YOVRSA.6VF5rbh6l8a2mvAgAtd3cJ7ol64")
+    bot.run("ODYyMjI2ODAxNDI5ODM5ODcy.YOVRSA.F7ZRNeeVYIBC7ju_vrOECofamWc")

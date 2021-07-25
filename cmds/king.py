@@ -29,7 +29,6 @@ class king(Cog_Extension):
                 if card[i][:-2]==king_for_this_round:  number.append(jdata["No King"][card[i][-1]])
                 elif card[i][:-3]==king_for_this_round:  number.append(jdata["No King"]["10"])
                 else: number.append(0)
-            print (number)
             win=king.compare(self,number)
             return win
         elif self.king_color=="mini":
@@ -37,7 +36,6 @@ class king(Cog_Extension):
                 if card[i][:-2]==king_for_this_round:  number.append(jdata["mini"][card[i][-1]])
                 elif card[i][:-3]==king_for_this_round:  number.append(jdata["mini"]["10"])
                 else: number.append(0)
-            print (number)
             win=king.compare(self,number)
             return win
         elif self.king_color=="Middle":
@@ -45,7 +43,6 @@ class king(Cog_Extension):
                 if card[i][:-2]==king_for_this_round:  number.append(jdata["Middle"][card[i][-1]])
                 elif card[i][:-3]==king_for_this_round:  number.append(jdata["Middle"]["10"])
                 else: number.append(0)
-            print (number)
             win=king.compare(self,number)
             return win
         else:
@@ -55,7 +52,6 @@ class king(Cog_Extension):
                 elif card[i][:-2]==king_for_this_round:  number.append(jdata["normal"][card[i][-1]])
                 elif card[i][:-3]==king_for_this_round:  number.append(jdata["normal"]["10"])
                 else: number.append(0)
-            print (number)
             win=king.compare(self,number)
             return win
 
@@ -100,7 +96,6 @@ class king(Cog_Extension):
                 self.a_wincount,self.b_wincount=0,0
                 self.cards=[]
                 self.win_count_start=True
-                print(self.join)
             else : await ctx.channel.send("你真的要這樣打牌嗎?")
     
     @commands.Cog.listener()
@@ -113,22 +108,21 @@ class king(Cog_Extension):
             player=await self.bot.fetch_user(jdata["player"][self.counter])
             if msg.content in jdata["poker"] and msg.author==player:
                 if msg.content in jdata[F"player{self.counter}_cards"]:
-                    print ("receive")
                     content=msg.content
                     self.cards.append(content)
                     jdata[F"player{self.counter}_cards"].remove(content)
                     with open("background_setting.json",'w',encoding="utf8")as jfile:
                         json.dump(jdata,jfile,indent=4)
+                    if len(self.cards)!=4: 
+                        if self.counter==3:self.counter-=4
+                        await msg.channel.send(F"輪到{self.counter+2}號玩家出牌")
                 else: 
                     await msg.channel.send("作弊爛ㄐㄐ")
                     self.counter-=1 
             else : self.counter-=1
             if len(self.cards)==4:
-                print (self.cards)
                 win=king.judge(self,self.cards)
-                print (win)
                 win-=(self.counter+1)
-                print (win)
                 if win<=-1: win+=4
                 if win==0 or win==2: self.a_wincount+=1
                 elif win==1 or win==3: self.b_wincount+=1
@@ -141,7 +135,9 @@ class king(Cog_Extension):
                     jdata["player"]=[]
                     for i in range(4):
                         jdata[F"player{i}_cards"]=[]
-                    Cog_Extension.join=True
+                    jdata["join"]="True"
+                    with open("background_setting.json",'w',encoding="utf8")as jfile:
+                        json.dump(jdata,jfile,indent=4)
                     self.win_count_start=False
                 elif self.b_wincount==self.b_win_edition:
                     await self.channel.send("遊戲結束，b隊勝利")
@@ -149,6 +145,8 @@ class king(Cog_Extension):
                     for i in range(4):
                         jdata[F"player{i}_cards"]=[]
                     jdata["join"]="True"
+                    with open("background_setting.json",'w',encoding="utf8")as jfile:
+                        json.dump(jdata,jfile,indent=4)
                     self.win_count_start=False
                 else:
                     for i in range(4):
@@ -163,6 +161,7 @@ class king(Cog_Extension):
                         jdata[F"player{i}_id"]=text.id
                         with open("background_setting.json",'w',encoding="utf8")as jfile:
                             json.dump(jdata,jfile,indent=4)
+
             
 
 def setup(bot):
